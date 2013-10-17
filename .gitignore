@@ -3,5 +3,8 @@ node_modules/
 lib/
 server.pid
 server.log
+docserver.pid
+docserver.log
 app.js
+docapp.js
 doc/
