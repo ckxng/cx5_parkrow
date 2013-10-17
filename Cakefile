@@ -14,12 +14,12 @@ run = (cmd, params) ->
     callback?() if code is 0
 
 task 'build', 'Build all', ->
-  run './makelinks.sh'
+  run './bin/makelinks.sh'
   run 'coffee', ['-c', '-o', '.', 'src']
 
 task 'watch', 'Build all and watch src/ for changes', ->
-  run './makelinks.sh'
+  run './bin/makelinks.sh'
   run 'coffee', ['-w', '-c', '-o', '.', 'src']
 
 task 'docs', 'Build docs', ->
-  run './makedocs.sh'
+  run './bin/makedocs.sh'
