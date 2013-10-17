@@ -9,6 +9,7 @@ First, include required modules.
 
     express = require 'express'
     exp3hbs = require 'express3-handlebars'
+    redis_store = require('connect-redis')(express)
 
 Next, initialize the application.
 
@@ -27,6 +28,15 @@ Configure Express to serve static files.
 
     app.use express.static('public')
 
+Initialize a session for later use.
+
+    cookie_secret = 'cfc1924e0b9b2e137a812912a3e3f2346d65aef6'
+    app.use express.cookieParser(cookie_secret)
+    app.use express.session({
+      store: new redis_store({host: '127.0.0.1', port: 6379, prefix: 'app-sess'}),
+      secret: cookie_secret
+    })
+
 ## Routes
 
 Add essential routes.
@@ -35,7 +45,6 @@ Add essential routes.
       res.render 'hello_world', {
         title: 'Hello World'
       }
-        
 
 ## Startup
 
