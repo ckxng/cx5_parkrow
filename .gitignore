@@ -1,3 +1,5 @@
 config/private.js
 node_modules/
 lib/
+server.pid
+server.log
