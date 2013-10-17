@@ -5,6 +5,7 @@ server.pid
 server.log
 docserver.pid
 docserver.log
+log/
 app.js
 docapp.js
 doc/
