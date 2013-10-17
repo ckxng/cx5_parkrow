@@ -21,3 +21,5 @@ task 'watch', 'Build all and watch src/ for changes', ->
   run './makelinks.sh'
   run 'coffee', ['-w', '-c', '-o', '.', 'src']
 
+task 'docs', 'Build docs', ->
+  run './makedocs.sh'
