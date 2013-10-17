@@ -4,8 +4,8 @@ fs = require 'fs'
 {print} = require 'sys'
 {spawn} = require 'child_process'
 
-build = (callback) ->
-  coffee = spawn 'coffee', ['-c', '-o', 'lib', 'src']
+run = (cmd, params) ->
+  coffee = spawn cmd, params
   coffee.stderr.on 'data', (data) ->
     process.stderr.write data.toString()
   coffee.stdout.on 'data', (data) ->
@@ -14,12 +14,10 @@ build = (callback) ->
     callback?() if code is 0
 
 task 'build', 'Build lib/ from src/', ->
-  build()
+  run './makelinks.sh'
+  run 'coffee', ['-c', '-o', 'lib', 'src']
 
 task 'watch', 'Watch src/ for changes', ->
-  coffee = spawn 'coffee', ['-w', '-c', '-o', 'lib', 'src']
-  coffee.stderr.on 'data', (data) ->
-    process.stderr.write data.toString()
-  coffee.stdout.on 'data', (data) ->
-    print data.toString()
+  run './makelinks.sh'
+  run 'coffee', ['-w', '-c', '-o', 'lib', 'src']
 
