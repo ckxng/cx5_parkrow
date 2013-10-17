@@ -4,3 +4,4 @@ lib/
 server.pid
 server.log
 app.js
+doc/
