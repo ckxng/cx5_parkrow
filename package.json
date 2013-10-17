@@ -13,7 +13,7 @@
     "express": "3.4.x",
     "coffee-script": "1.6.x",
     "handlebars": "1.0.x",
-    "hbs": "2.4.x"
+    "express3-handlebars": "0.5.x"
   },
   "engines": {
     "node": "0.10.x"
