@@ -13,11 +13,11 @@ run = (cmd, params) ->
   coffee.on 'exit', (code) ->
     callback?() if code is 0
 
-task 'build', 'Build lib/ from src/', ->
+task 'build', 'Build all', ->
   run './makelinks.sh'
-  run 'coffee', ['-c', '-o', 'lib', 'src']
+  run 'coffee', ['-c', '-o', '.', 'src']
 
-task 'watch', 'Watch src/ for changes', ->
+task 'watch', 'Build all and watch src/ for changes', ->
   run './makelinks.sh'
-  run 'coffee', ['-w', '-c', '-o', 'lib', 'src']
+  run 'coffee', ['-w', '-c', '-o', '.', 'src']
 
