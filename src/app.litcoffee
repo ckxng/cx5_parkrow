@@ -17,7 +17,7 @@ Next, initialize the application.
     app = express()
 
 Configure HBS to glue Express and Handlebars together with HTML file extensions
-for templates.  Also, register a partials directory to pre-load.
+for templates.
 
     app.set 'view engine', 'html'
     exp3hbs_config =
