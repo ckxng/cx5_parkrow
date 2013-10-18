@@ -49,6 +49,9 @@ Execute error handling module.
 
     require('./lib/error')(app)
 
+    # This must be the very last middleware added to the app
+    require('./lib/error/404')(app)
+
 ## Startup
 
 Finally, start the server.
