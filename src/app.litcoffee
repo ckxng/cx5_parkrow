@@ -43,6 +43,12 @@ Execute routes module.
 
     require('./lib/routes')(app)
 
+## Errors
+
+Execute error handling module.
+
+    require('./lib/error')(app)
+
 ## Startup
 
 Finally, start the server.
