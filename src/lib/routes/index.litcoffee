@@ -9,7 +9,7 @@ already initialized ExpressJS application.
 
 ## /
 
-Render Hello World.
+Render the main index page.
 
       app.get '/', (req, res) ->
         fs = require('fs')
