@@ -10,6 +10,7 @@ First, include required modules.
     express = require 'express'
     exp3hbs = require 'express3-handlebars'
     redis_store = require('connect-redis')(express)
+    secrets = require './config/private.js'
 
 Next, initialize the application.
 
@@ -30,11 +31,10 @@ Configure Express to serve static files.
 
 Initialize a session for later use.
 
-    cookie_secret = 'cfc1924e0b9b2e137a812912a3e3f2346d65aef6'
-    app.use express.cookieParser(cookie_secret)
+    app.use express.cookieParser(secrets.session_key)
     app.use express.session({
       store: new redis_store({host: '127.0.0.1', port: 6379, prefix: 'app-sess'}),
-      secret: cookie_secret
+      secret: secrets.session_key
     })
 
 ## Routes
