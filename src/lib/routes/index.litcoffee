@@ -29,8 +29,13 @@ Render the main index page.
 Render static pages at /view/page/name.html
 
       app.get '/page/:name', (req, res) ->
-        pg_view = "page/" + req.params.name
-        res.render pg_view
+        require('../page').getPage(app.models.page, req.params.name, (page) ->
+          if page
+            res.render 'page', page
+          else
+            console.error 'page '+req.params.name+' not found in db, showing static'
+            res.render 'page/'+req.params.name
+        )
 
 ## Copying
 
