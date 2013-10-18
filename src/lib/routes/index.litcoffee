@@ -16,6 +16,16 @@ Render Hello World.
           title: 'Hello World'
         }
 
+## /page/:name
+
+Render static pages at /view/page/name.html
+
+      app.get '/page/:name', (req, res) ->
+        pg_view = "page/" + req.params.name
+        res.render pg_view, {
+          title: req.params.name
+        }
+
 ## Copying
 
 This software is released under the ISC License.
