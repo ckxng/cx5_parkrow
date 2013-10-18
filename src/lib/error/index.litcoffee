@@ -1,23 +1,20 @@
 
-# Application Errors - 404
+# Application Errors
 
 To configure error middleware, the only object we need access to is `app`.  This module
-can be called with `require("./lib/error/404")(app)` as long as `app` is an already
+can be called with `require("./lib/error")(app)` as long as `app` is an already
 initialized ExpressJS application.
-
-This must be the very last middleware added to the application, so it is
-separate from any other modules.
 
     module.exports = (app) ->
 
 ## Catch All
 
-If no other middleware can handle the request, send a 404.
+If an error occurs, return an HTTP 500
 
-      app.use (req, res, next) ->
-        console.error("404 "+req.url)
-        res.status(404)
-        res.render('error/404')
+      app.use (err, req, res, next) ->
+        console.error(err.stack)
+        res.status(500)
+        res.render('error/500')
 
 ## Copying
 
