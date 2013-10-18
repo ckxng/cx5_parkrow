@@ -5,6 +5,11 @@ To configure error middleware, the only object we need access to is `app`.  This
 can be called with `require("./lib/error")(app)` as long as `app` is an already
 initialized ExpressJS application.
 
+Also note, app.models contians:
+
+- **app.models.db** - Mongoose MongoDB connection
+- **app.models.MODELNAME** - model objects
+
     module.exports = (app) ->
 
 ## Catch All

@@ -1,29 +1,33 @@
 
-# Application Errors - 404
+# Mongo Database
 
-To configure error middleware, the only object we need access to is `app`.  This module
-can be called with `require("./lib/error/404")(app)` as long as `app` is an already
-initialized ExpressJS application.
+These models are Mongoose models running on MongoDB
 
-This must be the very last middleware added to the application, so it is
-separate from any other modules.
+    mongoose = require 'mongoose'
+    mongoose.connect 'mongodb://localhost/cx5_parkrow'
+    db = mongoose.connection
 
-Also note, app.models contians:
+Register logging.
 
-- **app.models.db** - Mongoose MongoDB connection
-- **app.models.MODELNAME** - model objects
+    db.on 'error', console.error.bind(console, 'mongodb connection error:')
+    db.on 'connected', console.error.bind(console, 'mongodb connected.')
 
+If the application suddenly stops, intercept the interrupt and shutdown the MongoDB
+connection before quitting.
 
-    module.exports = (app) ->
+    process.on 'SIGINT', () ->
+      mongoose.connection.close () ->
+        console.error.bind console, 'mongodb closing due to sigint'
+        process.exit 0
 
-## Catch All
+## Models
 
-If no other middleware can handle the request, send a 404.
+Import the models that this application uses for easy access.
 
-      app.use (req, res, next) ->
-        console.error("404 "+req.url)
-        res.status(404)
-        res.render('error/404')
+    module.exports =
+      db: db
+      page: require('./page')(mongoose)
+
 
 ## Copying
 

@@ -5,6 +5,11 @@ To configure routes, the only object we need access to is `app`.  This module
 can be called with `require("./lib/routes")(app)` as long as `app` is an
 already initialized ExpressJS application.
 
+Also note, app.models contians:
+
+- **app.models.db** - Mongoose MongoDB connection
+- **app.models.MODELNAME** - model objects
+
     module.exports = (app) ->
 
 ## /

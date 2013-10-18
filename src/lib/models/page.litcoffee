@@ -1,29 +1,29 @@
 
-# Application Errors - 404
+# Model - Page
 
-To configure error middleware, the only object we need access to is `app`.  This module
-can be called with `require("./lib/error/404")(app)` as long as `app` is an already
-initialized ExpressJS application.
+Models require access to the mongoose object.  This model can be included
+with the following code: `model = require('page')(mongoose)`.
 
-This must be the very last middleware added to the application, so it is
-separate from any other modules.
+The permitted schema types are:
 
-Also note, app.models contians:
+- String
+- Number
+- Date
+- Buffer
+- Boolean
+- Mixed
+- ObjectId
+- Array
 
-- **app.models.db** - Mongoose MongoDB connection
-- **app.models.MODELNAME** - model objects
-
-
-    module.exports = (app) ->
-
-## Catch All
-
-If no other middleware can handle the request, send a 404.
-
-      app.use (req, res, next) ->
-        console.error("404 "+req.url)
-        res.status(404)
-        res.render('error/404')
+    module.exports = (mongoose) ->
+      schema =
+        name: String
+        title: String
+        body: String
+        security:
+          type: Number
+          default: 0
+      return mongoose.model 'Page', schema
 
 ## Copying
 

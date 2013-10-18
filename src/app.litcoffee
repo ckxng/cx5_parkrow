@@ -37,6 +37,12 @@ Initialize a session for later use.
       secret: secrets.session_key
     })
 
+## Database
+
+Connect to MongoDB through Mongoose and initialize models.
+
+    app.models = require './lib/models'
+
 ## Routes
 
 Execute routes module.
