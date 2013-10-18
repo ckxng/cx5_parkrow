@@ -12,8 +12,11 @@ already initialized ExpressJS application.
 Render Hello World.
 
       app.get '/', (req, res) ->
-        res.render 'hello_world', {
-          title: 'Hello World'
+        fs = require('fs')
+        res.render 'index', {
+          title: 'Welcome',
+          extra_head_css: fs.readFileSync('views/extra/nivo.css'),
+          extra_foot_js: fs.readFileSync('views/extra/nivo.js')
         }
 
 ## /page/:name
@@ -22,9 +25,7 @@ Render static pages at /view/page/name.html
 
       app.get '/page/:name', (req, res) ->
         pg_view = "page/" + req.params.name
-        res.render pg_view, {
-          title: req.params.name
-        }
+        res.render pg_view
 
 ## Copying
 

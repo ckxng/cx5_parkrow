@@ -1,10 +1,131 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>{{title}}</title>
+    <meta charset="utf-8">
+    {{#if title}}
+      <title>{{title}} | Park Row</title>
+    {{else}}
+      <title>Park Row</title>
+    {{/if}}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Cameron King">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font-awesome.css" />
+    <link rel="stylesheet" href="/css/theme.css" />
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Patua+One'>
+
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" href="/css/font-awesome-ie7.css" />
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    {{{extra_head_css}}}
+    {{{extra_head_js}}}
+
+    <link rel="shortcut icon" href="/favicon.ico">
 </head>
+
 <body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <a class="brand" href="/">
+            <i class="icon-home"></i> PR</a>
+        <ul class="nav">
+            <li><a href="/page/trunk_2013">Trunk or Treat 2013</a></li>
+            <li><a href="/page/youth_ministry">Students</a></li>
+            <li><a href="/page/childrens_ministry">Children</a></li>
+            <li><a href="/page/directions">Directions</a></li>
+            <li><a href="/page/calendar">Calendar</a></li>
+            <li><a href="/page/media">Media</a></li>
+            <li><a href="/directory">Directory</a></li>
+            {{#if logged_in}}
+                <li><a href="/logout">Logout {{username}}</a></li>
+            {{else}}
+                <li><a href="/login">Login</a></li>
+            {{/if}}
+        </ul>
+    </div>
+</div>
+
+<!-- showcase -->
+    <div class="showcase">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                        <header class="js-animated">
+                            <img src="/images/PR_Logo.png" alt="">
+                        </header>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- action strip --><!--
+<section class="strip">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+
+            </div>
+        </div>
+    </div>
+</section>
+-->
+
+<p>&nbsp;</p>
+
+<!-- Page Container -->
+<div class="container">
 
 {{{body}}}
 
-{{> copyright}}
+    <hr>
+
+</div><!-- page /.container -->
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <p class="pull-right"><a href="#">Back to top</a></p>
+                    Copyright ©2013. Park Row Church of Christ.<br />
+                    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4MQ5TLUVMDQ24">
+                        Donate with PayPal</a> |
+                    <a href="http://parkrow.net/media-request/">Media Request</a> |
+                    <a href="http://pr3.parkrow.net/pr3/user">Login</a> |
+                    <a href="https://parkrow.fellowshipone.com/">DB</a> |
+                    <a href="http://status.parkrow.net/">Status</a> |
+                    <a href="http://cgi.parkrow.net/directory/directory.cgi">Office Tools</a> |
+                    <a href="http://cam.parkrow.net:90/">Camera</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/js/jquery-1.8.2.min.js"><\/script>')</script>
+<script src="/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function(){
+        // fancy animation - fade out header content on page scroll
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 10) {
+                $('.js-animated').stop().animate({opacity: 0}, 200);
+            }
+            if ($(this).scrollTop() < 10) {
+                $('.js-animated').stop().animate({opacity: 1}, 500);
+            }
+        });
+        //bootstrap tooltip trigger
+        $('[rel="tooltip"]').tooltip();
+    });
+</script>
+
+{{{extra_foot_css}}}
+{{{extra_foot_js}}}
+
 </body>
+</html>
