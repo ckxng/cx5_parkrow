@@ -12,6 +12,7 @@ initialized ExpressJS application.
 If an error occurs, return an HTTP 500
 
       app.use (err, req, res, next) ->
+        console.error(err.stack)
         res.status(500)
         res.render('error/500')
 
