@@ -1,7 +1,7 @@
 {
-  "name": "cx5_node",
-  "description": "Express-based CMS for ECC",
-  "version": "0.0.1",
+  "name": "cx5_node-parkrow",
+  "description": "Express-based CMS for Park Row",
+  "version": "3.1.0",
   "repository": {
     "type": "git",
     "url": "git@psalms.ecc12.com:cx5_node"
