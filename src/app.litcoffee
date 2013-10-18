@@ -39,12 +39,9 @@ Initialize a session for later use.
 
 ## Routes
 
-Add essential routes.
+Execute routes module.
 
-    app.get '/', (req, res) ->
-      res.render 'hello_world', {
-        title: 'Hello World'
-      }
+    require('./lib/routes')(app)
 
 ## Startup
 

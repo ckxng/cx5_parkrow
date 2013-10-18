@@ -1,6 +1,6 @@
 config/private.js
 node_modules/
-lib/
+lib/*
 server.pid
 server.log
 docserver.pid
