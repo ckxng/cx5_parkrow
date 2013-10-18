@@ -16,6 +16,7 @@
     "express3-handlebars": "0.5.x",
     "mysql": "2.0.x",
     "mongodb": "0.9.x",
+    "mongoose": "3.6.x",
     "underscore": "1.5.x",
     "connect-redis": "1.4.x"
   },
