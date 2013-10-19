@@ -12,29 +12,65 @@ Also note, `models` contians:
 
 Code:
 
-    module.exports =
+    module.exports = {}
 
 ## getPage
 
 Requires:
 
+- **model** - the Page model
 - **name** - the name of the page to fetch
 - **callback** - (page) -> {...}
     - **page** - a dict containing:
+        - **page.name** - a string of the page name
         - **page.title** - a string of the page title
         - **page.body** - a string of the page body
 
 Code:
 
-      getPage: (model, name, callback) ->
-        model.findOne {name: name}, (err, doc) ->
-          if !doc
-            callback null
-          else
-            callback {
-              name: doc.get 'name'
-              body: doc.get 'body'
-            }
+    
+    getPage = (model, name, callback) ->
+      model.findOne {name: name}, (err, doc) ->
+        if err
+          console.error err.stack
+        if !doc
+          callback null
+        else
+          callback {
+            name: doc.get 'name'
+            title: doc.get 'title'
+            body: doc.get 'body'
+          }
+    module.exports.getPage = getPage
+
+## setPage
+
+Requires:
+
+- **model** - the Page model
+- **page** - a dict of the page to set containing:
+    - **page.name** - a string of the page name
+    - **page.title** - a string of the page title
+    - **page.body** - a string of the page body
+- **callback** - (page) -> {...}
+    - **page** - a dict of the page written to the db (uses getPage):
+        - **page.name** - a string of the page name
+        - **page.title** - a string of the page title
+        - **page.body** - a string of the page body
+
+Code:
+
+    setPage = (model, page, callback) ->
+      if !page || !page.name || !page.title || !page.body
+        console.error 'setPage called with invalid page'
+        callback null
+      model.create [page], (err) ->
+        if err
+          console.error err.stack
+          callback null
+        else
+          getPage model, page.name, callback
+    module.exports.setPage = setPage
           
 ## Copying
 
