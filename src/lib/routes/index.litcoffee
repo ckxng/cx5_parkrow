@@ -1,6 +1,10 @@
 
 # Application Routes
 
+The purpose of a route is to connect URL resources with underlying code.  I
+also do explicit data normalization (input -> dictionary to pass to method/dict
+from method -> view) at this stage.
+
 To configure routes, the only object we need access to is `app`.  This module
 can be called with `require("./lib/routes")(app)` as long as `app` is an
 already initialized ExpressJS application.
@@ -12,7 +16,7 @@ Also note, app.models contians:
 
     module.exports = (app) ->
 
-## /
+## GET /
 
 Render the main index page.
 
@@ -24,7 +28,7 @@ Render the main index page.
           extra_foot_js: fs.readFileSync('views/extra/nivo.js')
         }
 
-## /page/:name
+## GET /page/:name
 
 Render static pages at /view/page/name.html
 
@@ -36,6 +40,12 @@ Render static pages at /view/page/name.html
             console.error 'page '+req.params.name+' not found in db, showing static'
             res.render 'page/'+req.params.name
         )
+
+## POST /page/_post
+
+Post a page into the database
+
+WARNING no security! .. then again, it doesn't read input at the moment either.
 
       app.post '/page/_post', (req, res) ->
         sample =
