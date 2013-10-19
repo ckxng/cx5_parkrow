@@ -37,6 +37,22 @@ Render static pages at /view/page/name.html
             res.render 'page/'+req.params.name
         )
 
+      app.post '/page/_post', (req, res) ->
+        sample =
+          name: 'test'
+          title: 'Test Page'
+          body: 'Hello world, from inside the DB'
+        require('../page').setPage(app.models.page, sample, (page) ->
+          if page
+            res.render 'page', page
+          else
+            page =
+              name: 'error'
+              title: 'Error'
+              body: 'There was an error posting your page, please try again.'
+            res.render 'page', page
+        )
+          
 ## Copying
 
 This software is released under the ISC License.
