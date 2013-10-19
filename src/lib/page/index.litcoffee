@@ -1,16 +1,9 @@
 
 # Page Controller
 
-The Page controller requires access to models.  In this application, models can
-be found at `app.models`.  To access this module, use the following code: 
-`page = require('../page')(app.models)`.
-
-Also note, `models` contians:
-
-- **models.db** - Mongoose MongoDB connection
-- **models.MODELNAME** - model objects
-
-Code:
+To access this module, use the following code: 
+`page = require('../page')`.  Methods can be called as:
+`page.getPage(model, name, (page) -> { ... })`.
 
     module.exports = {}
 
