@@ -63,6 +63,13 @@ WARNING no security! .. then again, it doesn't read input at the moment either.
             res.render 'page', page
         )
           
+## GET /login
+
+Render static pages at /view/login/index.html
+
+      app.get '/login', (req, res) ->
+        res.render 'login'
+
 ## Copying
 
 This software is released under the ISC License.
