@@ -37,6 +37,22 @@ Initialize a session for later use.
       secret: secrets.session_key
     })
 
+## Cross-Site Request Forgeries
+
+Add the CSRF submission protection middleware.  This generates
+`req.session.\_csrf` and maps it to `res.locals.token` so it will be available
+in all templates as {{{token}}}.
+
+Anything other than a GET, HEAD, or OPTIONS will require a valid `\_CSRF` field
+or else it will be rejected with a 403.
+
+Must be after sessions and before routers.
+
+    app.use express.csrf()
+    app.use (req, res, next) ->
+      res.locals.token = req.csrfToken()
+      next()
+
 ## Database
 
 Connect to MongoDB through Mongoose and initialize models.

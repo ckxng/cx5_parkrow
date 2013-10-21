@@ -18,6 +18,7 @@
             <form action="/login/_post" method="post"  class="form">
                 <input type="hidden" id="username" name="_username" value="parkrow" />
                 <input type="password" class="span2" id="password" name="_password" placeholder="password"/>
+		<input type="hidden" id="crsf" name="_crsf" value="{{{token}}}" />
 
                 <button class="btn btn-block" type="submit">Login</button>
             </form>
