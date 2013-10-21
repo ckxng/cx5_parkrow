@@ -52,7 +52,7 @@ Code:
 Check the user's name and password.  Passwords are hashed with **bcrypt**.
 
 TODO look at npm mongoose-password when it comes time to integrate into the
-database.
+database and don't hard code this password.
 
 Requires:
 
@@ -66,11 +66,11 @@ Requires:
 Code:
 
     module.exports.checkUser = checkUser = (name, password, callback) ->
+      if name != 'parkrow'
+        callback null, securityLevel.anonymous
       bcrypt = require 'bcrypt'
-      bcrypt.hash password, 8, (err, hash) ->
-        console.info 'checkUser checking = ' + hash
-        testhash = ''
-        if hash == testhash
+      bcrypt.compare password, '$2a$08$YGuZyKrN070rU1WrTqW2Cupnh0bRWtThJxJyXaKLWpt.I7Fl8Jlb2', (err, res) ->
+        if res
           callback name, securityLevel.user
         else
           callback null, securityLevel.anonymous

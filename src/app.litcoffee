@@ -29,13 +29,18 @@ Configure Express to serve static files.
 
     app.use express.static('public')
 
-Initialize a session for later use.
+Initialize a session for later use.  Associate session data with
+`res.locals.session`.
 
     app.use express.cookieParser(secrets.session_key)
     app.use express.session({
       store: new redis_store({host: '127.0.0.1', port: 6379, prefix: 'app-sess'}),
-      secret: secrets.session_key
+      secret: secrets.session_key,
+      maxAge: 86400000
     })
+    app.use (req, res, next) ->
+      res.locals.session = req.session
+      next()
 
 ## Cross-Site Request Forgeries
 
@@ -48,6 +53,7 @@ or else it will be rejected with a 403.
 
 Must be after sessions and before routers.
 
+    app.use express.bodyParser()
     app.use express.csrf()
     app.use (req, res, next) ->
       res.locals.token = req.csrfToken()

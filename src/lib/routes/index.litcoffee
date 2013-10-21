@@ -70,6 +70,29 @@ Render static pages at /view/login/index.html
       app.get '/login', (req, res) ->
         res.render 'login'
 
+          
+## POST /login/_post
+
+Render static pages at /view/login/index.html
+
+      app.post '/login/_post', (req, res) ->
+        require('../login').checkUser req.body.username, req.body.password, (user, securityLevel) ->
+          console.info 'login callback = '+user+', '+securityLevel
+          req.session.user = user
+          req.session.securityLevel = securityLevel
+          if securityLevel
+            res.redirect '/'
+          else
+            res.redirect '/login'
+
+## GET /login/clear
+
+Logout from the website by clearing the session
+
+      app.get '/login/clear', (req, res) ->
+        req.session.destroy (err) ->
+          res.redirect '/login'
+
 ## Copying
 
 This software is released under the ISC License.

@@ -41,10 +41,10 @@
             <li><a href="/page/calendar">Calendar</a></li>
             <li><a href="/page/media">Media</a></li>
             <li><a href="/directory">Directory</a></li>
-            {{#if logged_in}}
-                <li><a href="/logout">Logout {{username}}</a></li>
+            {{#if session.securityLevel}}
+                <li><a href="/login/clear">Logout {{session.user}}</a></li>
             {{else}}
-                <li><a href="/login">Login</a></li>
+                <li><a href="/login">Login {{session.user}}</a></li>
             {{/if}}
         </ul>
     </div>
