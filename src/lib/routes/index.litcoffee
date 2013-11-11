@@ -41,6 +41,19 @@ Render static pages at /view/page/name.html
             res.render 'page/'+req.params.name
         )
 
+## GET /page/:name/edit
+
+Render static pages at /view/page/name.html
+
+      app.get '/page/:name/edit', (req, res) ->
+        require('../page').getPage(app.models.page, req.params.name, (page) ->
+          res.render 'page/edit', {
+            body: page.body
+            title: 'Edit Page'
+            extra_foot_js: fs.readFileSync 'views/extra/bootstrap-wysiwyg.js'
+          }
+        )
+
 ## POST /page/_post
 
 Post a page into the database
