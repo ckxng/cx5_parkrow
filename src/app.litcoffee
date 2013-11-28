@@ -10,6 +10,7 @@ First, include required modules.
     express = require 'express'
     exp3hbs = require 'express3-handlebars'
     redis_store = require('connect-redis')(express)
+    config = require './config/config.js'
     secrets = require './config/private.js'
 
 Next, initialize the application.
@@ -34,7 +35,7 @@ Initialize a session for later use.  Associate session data with
 
     app.use express.cookieParser(secrets.session_key)
     app.use express.session({
-      store: new redis_store({host: '127.0.0.1', port: 6379, prefix: 'app-sess'}),
+      store: new redis_store({host: config.redis_host, port: config.redis_port, prefix: config.redis_prefix}),
       secret: secrets.session_key,
       maxAge: 86400000
     })
