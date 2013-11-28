@@ -73,9 +73,14 @@ Render static pages at /view/login/index.html
           
 ## POST /login/_post
 
-Render static pages at /view/login/index.html
+Do Login action, and redirect as appropriate.
+
+DISABLED
 
       app.post '/login/_post', (req, res) ->
+        # DISABLED
+        res.redirect '/login'
+        # /DISABLED
         require('../login').checkUser req.body.username, req.body.password, (user, securityLevel) ->
           console.info 'login callback = '+user+', '+securityLevel
           req.session.user = user
