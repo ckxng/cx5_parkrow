@@ -1,4 +1,5 @@
 config/private.js
+config/config.js
 node_modules/
 lib/*
 server.pid

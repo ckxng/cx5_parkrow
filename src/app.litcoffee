@@ -85,7 +85,7 @@ Execute error handling module.
 
 Finally, start the server.
 
-    app.listen 3000
+    app.listen config.port
 
 ## Copying
 
