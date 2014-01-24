@@ -15,7 +15,7 @@ Supports Thumbs: false
 }
 .theme-bar .nivoSlider {
 	position:relative;
-	background:#fff url(http://2.cdn06.v.ecc12.com/bundles/ecc12prhome/images/nivo/bar/loading.gif) no-repeat 50% 50%;
+	background:#fff url(/images/nivo/bar/loading.gif) no-repeat 50% 50%;
 }
 .theme-bar .nivoSlider img {
 	position:absolute;
@@ -60,7 +60,7 @@ Supports Thumbs: false
 	display:inline-block;
 	width:22px;
 	height:22px;
-	background:url(http://3.cdn06.v.ecc12.com/bundles/ecc12prhome/images/nivo/bar/bullets.png) no-repeat;
+	background:url(/images/nivo/bar/bullets.png) no-repeat;
 	text-indent:-9999px;
 	border:0;
 	margin: 5px 2px 0 2px;
