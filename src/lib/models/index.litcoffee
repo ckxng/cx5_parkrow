@@ -3,31 +3,33 @@
 
 These models are Mongoose models running on MongoDB
 
-    mongoose = require 'mongoose'
-    mongoose.connect 'mongodb://localhost/cx5_parkrow'
-    db = mongoose.connection
+    module.exports = (config) ->
+
+      mongoose = require 'mongoose'
+      mongoose.connect "mongodb://#{config.mongodb_host}/cx5_parkrow"
+      db = mongoose.connection
 
 Register logging.
 
-    db.on 'error', console.error.bind(console, 'mongodb connection error:')
-    db.on 'connected', console.error.bind(console, 'mongodb connected.')
+      db.on 'error', console.error.bind(console, 'mongodb connection error:')
+      db.on 'connected', console.error.bind(console, 'mongodb connected.')
 
 If the application suddenly stops, intercept the interrupt and shutdown the MongoDB
 connection before quitting.
 
-    process.on 'SIGINT', () ->
-      mongoose.connection.close () ->
-        console.error.bind console, 'mongodb closing due to sigint'
-        process.exit 0
+      process.on 'SIGINT', () ->
+        mongoose.connection.close () ->
+          console.error.bind console, 'mongodb closing due to sigint'
+          process.exit 0
 
 ## Models
 
 Import the models that this application uses for easy access.
 
-    module.exports =
-      db: db
-      page: require('./page')(mongoose)
-
+      vals =
+        db: db
+        page: require('./page')(mongoose)
+      return vals
 
 ## Copying
 

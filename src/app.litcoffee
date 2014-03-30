@@ -64,7 +64,7 @@ Must be after sessions and before routers.
 
 Connect to MongoDB through Mongoose and initialize models.
 
-    app.models = require './lib/models'
+    app.models = require('./lib/models')(config)
 
 ## Routes
 
