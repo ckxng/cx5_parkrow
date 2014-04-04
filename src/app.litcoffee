@@ -41,6 +41,8 @@ Initialize a session for later use.  Associate session data with
     })
     app.use (req, res, next) ->
       res.locals.session = req.session
+      if req.session.securityLevel
+        res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
       next()
 
 ## Cross-Site Request Forgeries

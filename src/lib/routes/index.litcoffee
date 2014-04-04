@@ -80,6 +80,7 @@ Do Login action, and redirect as appropriate.
           console.info 'login callback = '+user+', '+securityLevel
           req.session.user = user
           req.session.securityLevel = securityLevel
+          res.cookie 'nocache', '1'
           if securityLevel
             res.redirect '/'
           else
@@ -91,6 +92,7 @@ Logout from the website by clearing the session
 
       app.get '/login/clear', (req, res) ->
         req.session.destroy (err) ->
+          res.clearCookie 'nocache'
           res.redirect '/login'
 
 ## GET /directory
