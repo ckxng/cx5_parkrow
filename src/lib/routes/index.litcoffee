@@ -75,12 +75,7 @@ Render static pages at /view/login/index.html
 
 Do Login action, and redirect as appropriate.
 
-DISABLED
-
       app.post '/login/_post', (req, res) ->
-        # DISABLED
-        res.redirect '/login'
-        # /DISABLED
         require('../login').checkUser req.body.username, req.body.password, (user, securityLevel) ->
           console.info 'login callback = '+user+', '+securityLevel
           req.session.user = user
@@ -96,6 +91,40 @@ Logout from the website by clearing the session
 
       app.get '/login/clear', (req, res) ->
         req.session.destroy (err) ->
+          res.redirect '/login'
+
+## GET /directory
+ 
+Download PDF to browser
+
+      app.get '/directory', (req, res) ->
+        if req.session.securityLevel
+          request = require 'request'
+          request 'https://parkrow.nfshost.com/directory/api/1/directory/dump/?uid=prweb1&key=ab8QEV4mQHZ79T5x', (err, cbres, data) ->
+            if err or cbres.statusCode != 200
+              res.render 500, 'Error retrieving full directory'
+            else
+              dir = JSON.parse data
+              page = 
+                name: 'Full Directory'
+                title: 'Full Directory'
+                directory: dir.data
+                helpers:
+                  month: (num) ->
+                    return [null, 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][num]
+              res.render 'directory', page
+        else
+          res.redirect '/login'
+
+
+## GET /directory/directory.pdf
+ 
+Download PDF to browser
+
+      app.get '/directory/directory.pdf', (req, res) ->
+        if req.session.securityLevel
+          res.download 'protected/directory.pdf'
+        else
           res.redirect '/login'
 
 ## Copying

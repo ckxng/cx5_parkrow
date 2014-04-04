@@ -1,37 +1,53 @@
 
+{{#each directory}}
 <!-- family -->
 <!-- family.title -->
 <div class="row">
   <div class="span12">
-    <h2>Adams Family</h2>
+    <h2>{{name}} Family</h2>
   </div>
 </div>
 <!-- family.info -->
 <div class="row">
   <!-- family.info.address -->
   <div class="span3">
-    808 Wilshire Ct<br />
-    Arlington, TX 76012<br />
-    <br />
+    {{#if address1}}{{address1}}<br />
+    {{#if address2}}{{address2}}</br />{{/if}}
+    {{#if city}}{{city}}, {{state}} {{#if zip}}{{zip}}{{/if}}<br />{{/if}}
+    <br />{{/if}}
   </div>
   <!-- family.info.communication[] -->
   <div class="span9">
-    Family Phone: (817) 275-7827<br />
+    {{#if homePhone}}Home Phone: {{homePhone}}<br />{{/if}}
+    {{#if workPhone}}Work Phone: {{workPhone}}<br />{{/if}}
+    {{#if cellPhone}}Cell Phone: {{cellPhone}}<br />{{/if}}
+    {{#if email}}Email: <a href="mailto:{{email}}">{{email}}</a><br />{{/if}}
   </div>
 </div>
+{{#each people}}
 <!-- family.members[] as person -->
 <div class="row">
   <!-- person -->
   <div class="span3">
     <!-- person.name -->
-    <h4>W.C. Adams</h4>
+    <h4>{{#if title}}{{title}} {{/if}}{{firstName}} {{#if middleName}}{{middleName}} {{/if}}{{lastName}}</h4>
+    <!-- person.address -->
+    {{#if address1}}{{address1}}<br />
+    {{#if address2}}{{address2}}</br />{{/if}}
+    {{#if city}}{{city}}, {{state}} {{#if zip}}{{zip}}{{/if}}<br />{{/if}}
+    <br />{{/if}}
     <!-- person.communication -->
+    {{#if homePhone}}Home Phone: {{homePhone}}<br />{{/if}}
+    {{#if workPhone}}Work Phone: {{workPhone}}<br />{{/if}}
+    {{#if cellPhone}}Cell Phone: {{cellPhone}}<br />{{/if}}
+    {{#if email}}Email: <a href="mailto:{{email}}">{{email}}</a><br />{{/if}}
     <!-- person.birthday -->
-    Birthday: Feb 05<br />
+    {{#if birthMonth}}Birthday: {{month birthMonth}}{{#if birthDay}} {{birthDay}}{{/if}}<br />{{/if}}
     <!-- person.anniversary -->
   </div>
 </div>
+{{/each}}
 <hr />
 <!-- /family -->        
-
+{{/each}}
 
