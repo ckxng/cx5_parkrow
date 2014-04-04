@@ -67,7 +67,10 @@ WARNING no security! .. then again, it doesn't read input at the moment either.
 
 Render static pages at /view/login/index.html
 
+And never cache the login page, it breaks csrf
+
       app.get '/login', (req, res) ->
+        res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0')
         res.render 'login'
 
           
