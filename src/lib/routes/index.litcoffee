@@ -105,7 +105,7 @@ Download PDF to browser
       app.get '/directory', (req, res) ->
         if req.session.securityLevel
           request = require 'request'
-          request 'https://parkrow.nfshost.com/directory/api/1/directory/dump/?uid=prweb1&key=ab8QEV4mQHZ79T5x', (err, cbres, data) ->
+          request app.directory_url, (err, cbres, data) ->
             if err or cbres.statusCode != 200
               res.render 500, 'Error retrieving full directory'
             else

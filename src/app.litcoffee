@@ -43,6 +43,10 @@ Initialize a session for later use.  Associate session data with
       res.locals.session = req.session
       next()
 
+Place directory URL in a place where we can find it later.
+
+    app.directory_url = secrets.directory_url
+
 ## Cross-Site Request Forgeries
 
 Add the CSRF submission protection middleware.  This generates
