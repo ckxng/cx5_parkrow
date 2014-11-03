@@ -1,10 +1,10 @@
 {
-  "name": "cx5_node",
+  "name": "cx5_template",
   "description": "Express-based CMS for ECC",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
-    "url": "git@psalms.ecc12.com:cx5_node"
+    "url": "git@github.com:ecc12/cx5_template.git"
   },
   "scripts": {
     "start": "node app"
