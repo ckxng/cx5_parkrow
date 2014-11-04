@@ -22,11 +22,7 @@ Render the main index page.
 
       app.get '/', (req, res) ->
         fs = require('fs')
-        res.render 'index', {
-          title: 'Welcome',
-          extra_head_css: fs.readFileSync('views/extra/nivo.css'),
-          extra_foot_js: fs.readFileSync('views/extra/nivo.js')
-        }
+        res.redirect '/page/index'
 
 ## GET /page/:name
 
