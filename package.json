@@ -20,7 +20,8 @@
     "underscore": "1.5.x",
     "connect-redis": "1.4.x",
     "bcrypt": "0.7.x",
-    "request": "2.34.x"
+    "request": "2.34.x",
+    "aws-sdk": "2.0.x"
   },
   "engines": {
     "node": "0.10.x"
