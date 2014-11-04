@@ -1,29 +1,94 @@
 
 # Model - Page
 
-Models require access to the mongoose object.  This model can be included
-with the following code: `model = require('page')(mongoose)`.
+Models require access to the DynamoDB db object.
 
-The permitted schema types are:
+    module.exports = (db) ->
 
-- String
-- Number
-- Date
-- Buffer
-- Boolean
-- Mixed
-- ObjectId
-- Array
+      table = "Cx5ParkRow_Page"
 
-    module.exports = (mongoose) ->
-      schema =
-        name: String
-        title: String
-        body: String
-        security:
-          type: Number
-          default: 0
-      return mongoose.model 'Page', schema
+## Page object
+
+A page is represented by the following data structure:
+
+- name: (string) url slug
+- title: (string) title of the page
+- content: (string) the body of the page in raw HTML
+- published: (boolean) true if page is published and visible by users
+- securitylevel: (number) the minimum security level required to view this page
+
+## get(name, cb)
+
+Fetch a page by name (slug).
+
+callback expects (err, data).  Data will contain a page object on success.
+
+      page = 
+        get: (name, cb) ->
+          apireq =
+            TableName: table
+            Key:
+              Name:
+                S: name
+                
+          db.getItem apireq, (err, data) ->
+            if err
+              console.error 'Error getting page from '+table+': '+err
+              cb err, data
+            else if not data or not data.hasOwnProperty("Item") or not data.Item.hasOwnProperty("Name")
+              console.error 'There is no '+name+' in '+table
+              cb new Error('There is no '+name+' in '+table), data
+            else
+              pageret =
+                name: data.Item.Name.S
+                published: 1
+                securitylevel: 0
+              if data.Item.hasOwnProperty "Title"
+                pageret.title = data.Item.Title.S
+              if data.Item.hasOwnProperty "Content"
+                pageret.content = data.Item.Content.S
+              if data.Item.hasOwnProperty "Published"
+                pageret.published = data.Item.Published.BOOL
+              if data.Item.hasOwnProperty "SecurityLevel" 
+                pageret.securitylevel = data.Item.SecurityLevel.N
+              cb err, pageret
+
+## set(page, cb)
+
+Sets a page based on the object passed in.
+
+callback expects (err, data)
+
+Returns a page object if sucessful.  Returns null on error.
+
+        set: (data, cb) ->
+          if not data or not 'name' in data
+            return null
+          if not 'published' in data
+            data.published = 1
+          if not 'securitylevel' in data
+            data.securitylevel = 0
+            
+          apireq = 
+            TableName: table
+            Item:
+                Name: 
+                  S: data.name
+                Title:
+                  S: data.title
+                Content:
+                  S: data.content
+                Published:
+                  BOOL: data.published
+                SecurityLevel:
+                  N: data.securitylevel
+                  
+          db.putItem apireq, (err, data) ->
+            if err
+              console.error "Error putting page to "+table+": "+err
+            cb(err, data)
+        
+      return page
 
 ## Copying
 

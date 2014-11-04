@@ -1,26 +1,16 @@
 
 # Mongo Database
 
-These models are Mongoose models running on MongoDB
+These models are DynamoDB models running on AWS
+
+AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY must be exported as environment 
+variables.
 
     module.exports = (config) ->
 
-      mongoose = require 'mongoose'
-      mongoose.connect "mongodb://#{config.mongodb_host}/cx5_parkrow"
-      db = mongoose.connection
-
-Register logging.
-
-      db.on 'error', console.error.bind(console, 'mongodb connection error:')
-      db.on 'connected', console.error.bind(console, 'mongodb connected.')
-
-If the application suddenly stops, intercept the interrupt and shutdown the MongoDB
-connection before quitting.
-
-      process.on 'SIGINT', () ->
-        mongoose.connection.close () ->
-          console.error.bind console, 'mongodb closing due to sigint'
-          process.exit 0
+      aws = require 'aws-sdk'
+      aws.config.region = config.aws_region
+      db = new aws.DynamoDB()
 
 ## Models
 
@@ -28,7 +18,7 @@ Import the models that this application uses for easy access.
 
       vals =
         db: db
-        page: require('./page')(mongoose)
+        page: require('./page')(db)
       return vals
 
 ## Copying

@@ -33,35 +33,32 @@ Render the main index page.
 Render static pages at /view/page/name.html
 
       app.get '/page/:name', (req, res) ->
-        require('../page').getPage(app.models.page, req.params.name, (page) ->
-          if page
-            res.render 'page', page
-          else
+        app.models.page.get req.params.name, (err, page) ->
+          if err
             console.error 'page '+req.params.name+' not found in db, showing static'
             res.render 'page/'+req.params.name
-        )
+          else
+            res.render 'page/dynamic', page
 
 ## POST /page/_post
 
 Post a page into the database
 
 WARNING no security! .. then again, it doesn't read input at the moment either.
+<!-- ' -->
 
       app.post '/page/_post', (req, res) ->
         sample =
           name: 'test'
           title: 'Test Page'
-          body: 'Hello world, from inside the DB'
-        require('../page').setPage(app.models.page, sample, (page) ->
-          if page
-            res.render 'page', page
-          else
-            page =
+          content: 'Hello world, from inside the DB'
+        app.models.page sample, (err, page) ->
+          if err
+            page = 
               name: 'error'
               title: 'Error'
-              body: 'There was an error posting your page, please try again.'
-            res.render 'page', page
-        )
+              content: 'There was an error posting your page, please try again.'
+          res.render 'page/dynamic', page
           
 ## GET /login
 
