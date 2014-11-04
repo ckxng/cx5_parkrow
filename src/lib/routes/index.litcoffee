@@ -21,7 +21,6 @@ Also note, app.models contians:
 Render the main index page.
 
       app.get '/', (req, res) ->
-        fs = require('fs')
         res.redirect '/page/index'
 
 ## GET /page/:name
