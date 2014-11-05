@@ -30,8 +30,8 @@ Render static pages at /view/page/name.html
       app.get '/page/:name', (req, res) ->
         app.models.page.get req.params.name, (err, page) ->
           if err
-            console.error 'page '+req.params.name+' not found in db, showing static'
-            res.render 'page/'+req.params.name
+            console.error 'page '+req.params.name+' not found in db, showing 500'
+            res.render 'error/500'
           else
             res.render 'page/dynamic', page
 
