@@ -15,12 +15,32 @@ Also note, app.models contians:
 - **app.models.MODELNAME** - model objects
 
     module.exports = (app) ->
+      
+## Function cache(res, seconds)
+
+Set cache headers on this response.
+
+Usage: `cache(res,86400)`
+
+    cache(res,seconds) ->
+      res.header 'Cache-control', 'Cache-Control:public, max-age='+seconds
+      
+## Function nocache(res)
+
+Set uncacheable headers on this response
+
+Usage: `nocache(res)`
+
+    nocache(res) ->
+      res.header 'Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0'
+
 
 ## GET /
 
 Render the main index page.
 
       app.get '/', (req, res) ->
+        cache res, 2592000
         res.redirect '/page/index'
 
 ## GET /page/:name
@@ -31,8 +51,10 @@ Render static pages at /view/page/name.html
         app.models.page.get req.params.name, (err, page) ->
           if err
             console.error 'page '+req.params.name+' not found in db, showing 500'
+            nocache res
             res.render 'error/500'
           else
+            cache res, 86400
             res.render 'page/dynamic', page
 
 ## POST /page/_post
@@ -43,6 +65,7 @@ WARNING no security! .. then again, it doesn't read input at the moment either.
 <!-- ' -->
 
       app.post '/page/_post', (req, res) ->
+        nocache res
         sample =
           name: 'test'
           title: 'Test Page'
@@ -62,7 +85,7 @@ Render static pages at /view/login/index.html
 And never cache the login page, it breaks csrf
 
       app.get '/login', (req, res) ->
-        res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0')
+        nocache res
         res.render 'login'
 
           
@@ -71,6 +94,7 @@ And never cache the login page, it breaks csrf
 Do Login action, and redirect as appropriate.
 
       app.post '/login/_post', (req, res) ->
+        nocache res
         require('../login').checkUser req.body.username, req.body.password, (user, securityLevel) ->
           console.info 'login callback = '+user+', '+securityLevel
           req.session.user = user
@@ -86,6 +110,7 @@ Do Login action, and redirect as appropriate.
 Logout from the website by clearing the session
 
       app.get '/login/clear', (req, res) ->
+        nocache res
         req.session.destroy (err) ->
           res.clearCookie 'nocache'
           res.redirect '/login'
@@ -95,6 +120,7 @@ Logout from the website by clearing the session
 Download PDF to browser
 
       app.get '/directory', (req, res) ->
+        nocache res
         if req.session.securityLevel
           request = require 'request'
           request app.directory_url, (err, cbres, data) ->
@@ -119,6 +145,7 @@ Download PDF to browser
 Download PDF to browser
 
       app.get '/directory/directory.pdf', (req, res) ->
+        nocache res
         if req.session.securityLevel
           res.download 'protected/directory.pdf'
         else
