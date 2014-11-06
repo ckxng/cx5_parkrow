@@ -22,7 +22,7 @@ Set cache headers on this response.
 
 Usage: `cache(res,86400)`
 
-    cache(res,seconds) ->
+    cache = (res,seconds) ->
       res.header 'Cache-control', 'Cache-Control:public, max-age='+seconds
       
 ## Function nocache(res)
@@ -31,7 +31,7 @@ Set uncacheable headers on this response
 
 Usage: `nocache(res)`
 
-    nocache(res) ->
+    nocache = (res) ->
       res.header 'Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0'
 
 
