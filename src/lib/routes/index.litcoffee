@@ -101,7 +101,7 @@ Do Login action, and redirect as appropriate.
           req.session.securityLevel = securityLevel
           res.cookie 'nocache', '1'
           if securityLevel
-            res.redirect '/'
+            res.redirect '/directory'
           else
             res.redirect '/login'
 
