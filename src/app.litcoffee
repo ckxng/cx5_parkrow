@@ -28,7 +28,7 @@ for templates.
 
 Configure Express to serve static files.
 
-    app.use express.static('public', { maxAge: 8640000 })
+    app.use express.static('public', { maxAge: 86400000 })
 
 Initialize a session for later use.  Associate session data with
 `res.locals.session`.
