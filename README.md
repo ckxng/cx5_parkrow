@@ -22,5 +22,5 @@ on this project, at this time.
 Copying
 =======
 
-deploy_cx5_parkrow is licensed under the 2-CLAUSE BSD LICENSE.  See
+cx5_parkrow is licensed under the 2-CLAUSE BSD LICENSE.  See
 LICENSE for details.
